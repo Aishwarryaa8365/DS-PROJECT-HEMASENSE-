@@ -35,3 +35,9 @@ Thumbs.db
 dist/
 build/
 *.egg-info/
+
+# Old root-level files superseded by restructure
+/app.py
+/requirements.txt
+/static/
+/templates/
