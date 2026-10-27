@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HemaSense – Hematology Diagnostic Assistant</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <!-- HemaSense Styles -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/style.css') }}" />
+
+
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════
+       NAVBAR
+  ════════════════════════════════════════ -->
+  <nav class="navbar navbar-expand-lg sticky-top py-3">
+    <div class="container">
+
+      <!-- Brand -->
+      <a class="navbar-brand fw-bold fs-4 text-white" href="{{ url_for('home') }}">
+        <i class="bi bi-droplet-half me-2" style="color:#e63946;"></i>
+        Hema<span>Sense</span>
+      </a>
+
+      <!-- Toggler -->
+      <button class="navbar-toggler border-secondary" type="button"
+              data-bs-toggle="collapse" data-bs-target="#mainNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Links -->
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav mx-auto gap-lg-2">
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('diseases') }}">Diseases</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('prediction') }}">Prediction</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}">Contact</a></li>
+        </ul>
+        <div class="d-flex gap-2 mt-3 mt-lg-0">
+          <a href="{{ url_for('login') }}" class="btn btn-outline-light btn-sm rounded-pill px-3">Login</a>
+          <a href="{{ url_for('prediction') }}" class="btn btn-sm rounded-pill px-3 text-white"
+             style="background:var(--accent);">Get Started</a>
+        </div>
+      </div>
+
+    </div>
+  </nav>
+  <!-- END NAVBAR -->
+
+
+  <!-- ════════════════════════════════════════
+       HERO SECTION
+  ════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="container py-5">
+      <div class="row align-items-center g-5">
+
+        <!-- Text -->
+        <div class="col-lg-6">
+          <!-- Badge -->
+          <span class="badge rounded-pill mb-3 px-3 py-2"
+                style="background:rgba(91,192,235,.15); color:#5bc0eb; font-size:.85rem;">
+            <i class="bi bi-stars me-1"></i> AI-Powered Hematology
+          </span>
+
+          <h1 class="mb-4">
+            Smarter Blood Disease<br>
+            <span style="color:#5bc0eb;">Diagnostics</span> with AI
+          </h1>
+
+          <p class="mb-4">
+            HemaSense leverages advanced machine learning to assist clinicians and
+            patients in detecting hematological disorders early — accurately,
+            efficiently, and accessibly.
+          </p>
+
+          <!-- Buttons -->
+          <div class="d-flex flex-wrap gap-3 mb-5">
+            <a href="{{ url_for('prediction') }}" class="btn-primary-custom btn">
+              <i class="bi bi-activity me-2"></i>Start Diagnosis
+            </a>
+            <a href="#" class="btn-outline-custom btn">
+              <i class="bi bi-play-circle me-2"></i>See How It Works
+            </a>
+          </div>
+
+          <!-- Trust badges -->
+          <div class="d-flex flex-wrap gap-4">
+            <div class="text-white-50 small">
+              <i class="bi bi-shield-check text-success me-1"></i> HIPAA Compliant
+            </div>
+            <div class="text-white-50 small">
+              <i class="bi bi-cpu text-info me-1"></i> ML-Powered
+            </div>
+            <div class="text-white-50 small">
+              <i class="bi bi-clock-history text-warning me-1"></i> Real-time Results
+            </div>
+          </div>
+        </div>
+
+        <!-- Animated Illustration Placeholder -->
+        <div class="col-lg-6">
+          <div class="illustration-box p-4">
+            <i class="bi bi-heart-pulse mb-3"></i>
+            <p class="mb-1 fw-semibold" style="color:rgba(255,255,255,.7);">
+              Medical Illustration
+            </p>
+            <p class="small" style="color:rgba(255,255,255,.4);">
+              [ Replace with hematology SVG / Lottie animation ]
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- END HERO -->
+
+
+  <!-- ════════════════════════════════════════
+       FEATURES SECTION
+  ════════════════════════════════════════ -->
+  <section class="features py-6 py-5">
+    <div class="container py-5">
+
+      <!-- Heading -->
+      <div class="text-center mb-5">
+        <h2 class="section-title">Why Choose <span>HemaSense</span>?</h2>
+        <p class="section-subtitle mt-2">
+          Built for accuracy, speed, and clinical relevance — powered by state-of-the-art AI.
+        </p>
+      </div>
+
+      <!-- Feature Cards -->
+      <div class="row g-4">
+
+        <!-- Feature 1 -->
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-card">
+            <div class="feature-icon"><i class="bi bi-cpu"></i></div>
+            <h5 class="fw-700">AI Prediction</h5>
+            <p class="text-muted small mb-0">
+              Machine learning models trained on thousands of hematology cases
+              deliver high-accuracy predictions.
+            </p>
+          </div>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-card">
+            <div class="feature-icon"><i class="bi bi-lightning-charge"></i></div>
+            <h5 class="fw-700">Instant Results</h5>
+            <p class="text-muted small mb-0">
+              Get diagnostic insights in seconds — no waiting, no delays,
+              no complex lab workflows.
+            </p>
+          </div>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-card">
+            <div class="feature-icon"><i class="bi bi-bar-chart-line"></i></div>
+            <h5 class="fw-700">Visual Dashboard</h5>
+            <p class="text-muted small mb-0">
+              Interactive charts and trend analysis help clinicians monitor
+              patient health over time.
+            </p>
+          </div>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-card">
+            <div class="feature-icon"><i class="bi bi-shield-lock"></i></div>
+            <h5 class="fw-700">Secure & Private</h5>
+            <p class="text-muted small mb-0">
+              Patient data is encrypted end-to-end. Full compliance with
+              healthcare data privacy standards.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- END FEATURES -->
+
+
+  <!-- ════════════════════════════════════════
+       DISEASE CARDS SECTION
+  ════════════════════════════════════════ -->
+  <section class="py-5" style="background:#fff;">
+    <div class="container py-4">
+
+      <!-- Heading -->
+      <div class="text-center mb-5">
+        <h2 class="section-title">Detectable <span>Conditions</span></h2>
+        <p class="section-subtitle mt-2">
+          HemaSense screens for a wide range of hematological disorders.
+        </p>
+      </div>
+
+      <!-- Cards -->
+      <div class="row g-4">
+
+        <!-- Anemia -->
+        <div class="col-sm-6 col-lg-4">
+          <div class="card disease-card h-100 border-0 shadow-sm">
+            <!-- Image placeholder -->
+            <div class="bg-danger bg-opacity-10 d-flex align-items-center
+                        justify-content-center" style="height:140px;">
+              <i class="bi bi-droplet-fill text-danger" style="font-size:3.5rem;"></i>
+            </div>
+            <div class="card-body">
+              <span class="disease-badge bg-danger bg-opacity-10 text-danger mb-2 d-inline-block">
+                Blood Disorder
+              </span>
+              <h5 class="card-title fw-bold">Anemia</h5>
+              <p class="card-text text-muted small">
+                Detects iron-deficiency, aplastic, and hemolytic anemia through
+                CBC pattern recognition.
+              </p>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3">
+              <a href="{{ url_for('diseases') }}" class="btn btn-sm btn-outline-danger rounded-pill px-3">
+                Learn More <i class="bi bi-arrow-right ms-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Leukemia -->
+        <div class="col-sm-6 col-lg-4">
+          <div class="card disease-card h-100 border-0 shadow-sm">
+            <div class="bg-primary bg-opacity-10 d-flex align-items-center
+                        justify-content-center" style="height:140px;">
+              <i class="bi bi-virus text-primary" style="font-size:3.5rem;"></i>
+            </div>
+            <div class="card-body">
+              <span class="disease-badge bg-primary bg-opacity-10 text-primary mb-2 d-inline-block">
+                Malignancy
+              </span>
+              <h5 class="card-title fw-bold">Leukemia</h5>
+              <p class="card-text text-muted small">
+                Early-stage leukemia screening using white blood cell count
+                anomaly detection models.
+              </p>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3">
+              <a href="{{ url_for('diseases') }}" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                Learn More <i class="bi bi-arrow-right ms-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Thalassemia -->
+        <div class="col-sm-6 col-lg-4">
+          <div class="card disease-card h-100 border-0 shadow-sm">
+            <div class="bg-warning bg-opacity-10 d-flex align-items-center
+                        justify-content-center" style="height:140px;">
+              <i class="bi bi-heart-pulse text-warning" style="font-size:3.5rem;"></i>
+            </div>
+            <div class="card-body">
+              <span class="disease-badge bg-warning bg-opacity-10 text-warning mb-2 d-inline-block">
+                Genetic
+              </span>
+              <h5 class="card-title fw-bold">Thalassemia</h5>
+              <p class="card-text text-muted small">
+                Identifies alpha and beta thalassemia traits using hemoglobin
+                electrophoresis data patterns.
+              </p>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3">
+              <a href="{{ url_for('diseases') }}" class="btn btn-sm btn-outline-warning rounded-pill px-3">
+                Learn More <i class="bi bi-arrow-right ms-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sickle Cell -->
+        <div class="col-sm-6 col-lg-4">
+          <div class="card disease-card h-100 border-0 shadow-sm">
+            <div class="bg-success bg-opacity-10 d-flex align-items-center
+                        justify-content-center" style="height:140px;">
+              <i class="bi bi-capsule text-success" style="font-size:3.5rem;"></i>
+            </div>
+            <div class="card-body">
+              <span class="disease-badge bg-success bg-opacity-10 text-success mb-2 d-inline-block">
+                Genetic
+              </span>
+              <h5 class="card-title fw-bold">Sickle Cell Disease</h5>
+              <p class="card-text text-muted small">
+                Detects sickle cell trait and disease using morphological
+                red blood cell analysis.
+              </p>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3">
+              <a href="{{ url_for('diseases') }}" class="btn btn-sm btn-outline-success rounded-pill px-3">
+                Learn More <i class="bi bi-arrow-right ms-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Thrombocytopenia -->
+        <div class="col-sm-6 col-lg-4">
+          <div class="card disease-card h-100 border-0 shadow-sm">
+            <div class="bg-info bg-opacity-10 d-flex align-items-center
+                        justify-content-center" style="height:140px;">
+              <i class="bi bi-activity text-info" style="font-size:3.5rem;"></i>
+            </div>
+            <div class="card-body">
+              <span class="disease-badge bg-info bg-opacity-10 text-info mb-2 d-inline-block">
+                Platelet Disorder
+              </span>
+              <h5 class="card-title fw-bold">Thrombocytopenia</h5>
+              <p class="card-text text-muted small">
+                Flags abnormally low platelet counts that may indicate bleeding
+                disorders or bone marrow issues.
+              </p>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3">
+              <a href="{{ url_for('diseases') }}" class="btn btn-sm btn-outline-info rounded-pill px-3">
+                Learn More <i class="bi bi-arrow-right ms-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Polycythemia -->
+        <div class="col-sm-6 col-lg-4">
+          <div class="card disease-card h-100 border-0 shadow-sm">
+            <div class="d-flex align-items-center justify-content-center"
+                 style="height:140px; background:rgba(111,66,193,.08);">
+              <i class="bi bi-graph-up-arrow" style="font-size:3.5rem; color:#6f42c1;"></i>
+            </div>
+            <div class="card-body">
+              <span class="disease-badge mb-2 d-inline-block"
+                    style="background:rgba(111,66,193,.1); color:#6f42c1;">
+                Myeloproliferative
+              </span>
+              <h5 class="card-title fw-bold">Polycythemia Vera</h5>
+              <p class="card-text text-muted small">
+                Identifies elevated red blood cell mass and associated JAK2
+                mutation risk markers.
+              </p>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3">
+              <a href="{{ url_for('diseases') }}" class="btn btn-sm rounded-pill px-3"
+                 style="border:1px solid #6f42c1; color:#6f42c1;">
+                Learn More <i class="bi bi-arrow-right ms-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /row -->
+
+      <!-- View All -->
+      <div class="text-center mt-5">
+        <a href="{{ url_for('diseases') }}" class="btn btn-outline-primary rounded-pill px-4 py-2">
+          View All Conditions <i class="bi bi-arrow-right ms-1"></i>
+        </a>
+      </div>
+
+    </div>
+  </section>
+  <!-- END DISEASE CARDS -->
+
+
+  <!-- ════════════════════════════════════════
+       STATISTICS SECTION
+  ════════════════════════════════════════ -->
+  <section class="stats py-5">
+    <div class="container py-4">
+      <div class="row g-4 text-center">
+
+        <div class="col-6 col-md-3">
+          <div class="stat-number">95%</div>
+          <div class="stat-label">Diagnostic Accuracy</div>
+        </div>
+
+        <div class="col-6 col-md-3">
+          <div class="stat-number">10K+</div>
+          <div class="stat-label">Patients Screened</div>
+        </div>
+
+        <div class="col-6 col-md-3">
+          <div class="stat-number">6+</div>
+          <div class="stat-label">Diseases Detected</div>
+        </div>
+
+        <div class="col-6 col-md-3">
+          <div class="stat-number">&lt;5s</div>
+          <div class="stat-label">Average Result Time</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- END STATISTICS -->
+
+
+  <!-- ════════════════════════════════════════
+       CALL TO ACTION
+  ════════════════════════════════════════ -->
+  <section class="cta-section py-5">
+    <div class="container py-4 text-center">
+
+      <h2 class="fw-800 mb-3" style="font-weight:800;">
+        Ready to Experience AI-Powered Diagnostics?
+      </h2>
+      <p class="mb-4 opacity-75" style="max-width:560px; margin:auto;">
+        Join thousands of clinicians and patients who trust HemaSense for
+        fast, accurate hematology screening.
+      </p>
+      <div class="d-flex flex-wrap justify-content-center gap-3">
+        <a href="{{ url_for('prediction') }}" class="btn btn-light rounded-pill px-4 py-2 fw-600"
+           style="font-weight:600; color:var(--primary);">
+          <i class="bi bi-activity me-2"></i>Start Free Diagnosis
+        </a>
+        <a href="{{ url_for('login') }}" class="btn btn-outline-light rounded-pill px-4 py-2 fw-600"
+           style="font-weight:600;">
+          <i class="bi bi-person-plus me-2"></i>Create Account
+        </a>
+      </div>
+
+    </div>
+  </section>
+  <!-- END CTA -->
+
+
+  <!-- ════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════ -->
+  <footer class="py-5">
+    <div class="container">
+      <div class="row g-4">
+
+        <!-- Brand column -->
+        <div class="col-lg-4">
+          <div class="footer-brand fw-bold fs-5 text-white mb-2">
+            <i class="bi bi-droplet-half me-2" style="color:#e63946;"></i>
+            Hema<span>Sense</span>
+          </div>
+          <p class="small mb-3">
+            AI-powered hematology diagnostic assistant helping clinicians
+            detect blood disorders early and accurately.
+          </p>
+          <!-- Social icons -->
+          <div class="d-flex gap-2">
+            <a href="#" class="social-icon"><i class="bi bi-twitter-x"></i></a>
+            <a href="#" class="social-icon"><i class="bi bi-linkedin"></i></a>
+            <a href="#" class="social-icon"><i class="bi bi-github"></i></a>
+            <a href="#" class="social-icon"><i class="bi bi-envelope"></i></a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="col-6 col-lg-2">
+          <h6 class="text-white mb-3">Quick Links</h6>
+          <ul class="list-unstyled small">
+            <li class="mb-2"><a href="{{ url_for('home') }}">Home</a></li>
+            <li class="mb-2"><a href="{{ url_for('diseases') }}">Diseases</a></li>
+            <li class="mb-2"><a href="{{ url_for('prediction') }}">Prediction</a></li>
+            <li class="mb-2"><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+          </ul>
+        </div>
+
+        <!-- Resources -->
+        <div class="col-6 col-lg-2">
+          <h6 class="text-white mb-3">Resources</h6>
+          <ul class="list-unstyled small">
+            <li class="mb-2"><a href="#">Documentation</a></li>
+            <li class="mb-2"><a href="#">Research</a></li>
+            <li class="mb-2"><a href="#">Blog</a></li>
+            <li class="mb-2"><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div class="col-lg-4">
+          <h6 class="text-white mb-3">Contact Us</h6>
+          <ul class="list-unstyled small">
+            <li class="mb-2">
+              <i class="bi bi-envelope me-2" style="color:#5bc0eb;"></i>
+              support@hemasense.ai
+            </li>
+            <li class="mb-2">
+              <i class="bi bi-telephone me-2" style="color:#5bc0eb;"></i>
+              +1 (800) HEMA-AI
+            </li>
+            <li class="mb-2">
+              <i class="bi bi-geo-alt me-2" style="color:#5bc0eb;"></i>
+              Medical AI Research Lab
+            </li>
+          </ul>
+        </div>
+
+      </div><!-- /row -->
+
+      <!-- Divider & copyright -->
+      <hr class="mt-4 mb-3" style="border-color:rgba(255,255,255,.1);" />
+      <div class="d-flex flex-wrap justify-content-between align-items-center small">
+        <span>&copy; 2025 HemaSense. All rights reserved.</span>
+        <div class="d-flex gap-3 mt-2 mt-md-0">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+          <a href="#">Cookie Policy</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+  <!-- END FOOTER -->
+
+
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

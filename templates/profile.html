@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Profile – HemaSense</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}" />
+  <style>
+    .sidebar ul li a.active { background: rgba(255,255,255,0.18); }
+    .profile-card {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      overflow: hidden;
+      max-width: 640px;
+    }
+    .profile-header {
+      background: linear-gradient(135deg, #1976D2, #0D47A1);
+      padding: 36px 32px;
+      text-align: center;
+      color: #fff;
+    }
+    .profile-avatar {
+      width: 90px; height: 90px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      border: 3px solid rgba(255,255,255,0.5);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.8rem;
+      margin: 0 auto 14px;
+      color: #fff;
+    }
+    .profile-header h4 { font-weight: 800; margin-bottom: 4px; }
+    .profile-header p  { opacity: 0.75; font-size: 0.88rem; margin: 0; }
+    .profile-body { padding: 28px 32px; }
+    .info-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-icon {
+      width: 42px; height: 42px;
+      border-radius: 12px;
+      background: #eff6ff;
+      display: flex; align-items: center; justify-content: center;
+      color: #1976D2;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .info-label { font-size: 0.78rem; color: #9ca3af; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+    .info-value { font-size: 0.95rem; color: #0f172a; font-weight: 500; }
+    .role-badge {
+      display: inline-block;
+      background: #eff6ff;
+      color: #1976D2;
+      border-radius: 20px;
+      padding: 3px 12px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: capitalize;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <nav id="sidebar" class="sidebar">
+    <h2><i class="bi bi-droplet-half"></i> HemaSense</h2>
+    <ul>
+      <li><a href="{{ url_for('customer_dashboard') }}">
+        <i class="bi bi-speedometer2"></i><span>Dashboard</span></a></li>
+      <li><a href="{{ url_for('prediction') }}">
+        <i class="bi bi-activity"></i><span>New Prediction</span></a></li>
+      <li><a href="{{ url_for('my_predictions') }}">
+        <i class="bi bi-clock-history"></i><span>My History</span></a></li>
+      <li><a href="{{ url_for('profile') }}" class="active">
+        <i class="bi bi-person-circle"></i><span>My Profile</span></a></li>
+      <li><a href="{{ url_for('logout') }}">
+        <i class="bi bi-box-arrow-right"></i><span>Logout</span></a></li>
+    </ul>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+
+    <div class="top-navbar">
+      <h3>My Profile</h3>
+      <div class="profile">
+        <button class="btn btn-primary" id="sidebarToggle"><i class="bi bi-list"></i></button>
+        <strong>{{ user['full_name'] }}</strong>
+        <a href="{{ url_for('logout') }}" class="btn btn-sm btn-outline-danger ms-2">
+          <i class="bi bi-box-arrow-right me-1"></i>Logout
+        </a>
+      </div>
+    </div>
+
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="profile-avatar">
+          <i class="bi bi-person-fill"></i>
+        </div>
+        <h4>{{ user['full_name'] }}</h4>
+        <p>@{{ user['username'] }}</p>
+      </div>
+      <div class="profile-body">
+        <div class="info-row">
+          <div class="info-icon"><i class="bi bi-person-fill"></i></div>
+          <div>
+            <div class="info-label">Full Name</div>
+            <div class="info-value">{{ user['full_name'] }}</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon"><i class="bi bi-at"></i></div>
+          <div>
+            <div class="info-label">Username</div>
+            <div class="info-value">{{ user['username'] }}</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon"><i class="bi bi-envelope-fill"></i></div>
+          <div>
+            <div class="info-label">Email Address</div>
+            <div class="info-value">{{ user['email'] }}</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon"><i class="bi bi-shield-fill"></i></div>
+          <div>
+            <div class="info-label">Account Role</div>
+            <div class="info-value"><span class="role-badge">{{ user['role'] }}</span></div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon"><i class="bi bi-calendar-check-fill"></i></div>
+          <div>
+            <div class="info-label">Member Since</div>
+            <div class="info-value">{{ user['created_at'][:10] }}</div>
+          </div>
+        </div>
+        <div class="mt-4 d-flex gap-3 flex-wrap">
+          <a href="{{ url_for('prediction') }}" class="btn btn-primary rounded-pill px-4">
+            <i class="bi bi-plus-circle me-2"></i>New Prediction
+          </a>
+          <a href="{{ url_for('my_predictions') }}" class="btn btn-outline-primary rounded-pill px-4">
+            <i class="bi bi-clock-history me-2"></i>View History
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <footer class="text-center mt-5 mb-3 text-muted">
+      &copy; 2025 HemaSense | AI-Powered Hematology Diagnostic Assistant
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const toggleBtn = document.getElementById("sidebarToggle");
+    const sidebar   = document.getElementById("sidebar");
+    const main      = document.querySelector(".main-content");
+    toggleBtn.addEventListener("click", () => {
+      if (window.innerWidth <= 991) {
+        sidebar.style.left = sidebar.style.left === "-260px" ? "0" : "-260px";
+      } else {
+        const collapsed = sidebar.style.width === "80px";
+        sidebar.style.width   = collapsed ? "260px" : "80px";
+        main.style.marginLeft = collapsed ? "260px" : "80px";
+      }
+    });
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 991) sidebar.style.left = "0";
+    });
+  </script>
+</body>
+</html>

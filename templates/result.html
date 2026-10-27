@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HemaSense – Diagnosis Result</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <style>
+    .gauge-wrap {
+      background: rgba(91,192,235,.08);
+      border: 2px dashed rgba(91,192,235,.3);
+      border-radius: 1rem;
+      height: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,.4);
+    }
+    .result-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 1rem;
+    }
+    .risk-badge-high   { background: rgba(220,53,69,.15);  color: #ff6b6b; }
+    .risk-badge-medium { background: rgba(255,193,7,.15);  color: #ffc107; }
+    .risk-badge-low    { background: rgba(25,135,84,.15);  color: #20c997; }
+    .section-divider { border-color: rgba(255,255,255,.08); }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg sticky-top py-3">
+    <div class="container">
+      <a class="navbar-brand fw-bold fs-4 text-white" href="{{ url_for('home') }}">
+        <i class="bi bi-droplet-half me-2" style="color:#e63946;"></i>
+        Hema<span>Sense</span>
+      </a>
+      <button class="navbar-toggler border-secondary" type="button"
+              data-bs-toggle="collapse" data-bs-target="#mainNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav mx-auto gap-lg-2">
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('diseases') }}">Diseases</a></li>
+          <li class="nav-item"><a class="nav-link active" href="{{ url_for('prediction') }}">Prediction</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}">Contact</a></li>
+        </ul>
+        <div class="d-flex gap-2 mt-3 mt-lg-0">
+          <a href="{{ url_for('login') }}" class="btn btn-outline-light btn-sm rounded-pill px-3">Login</a>
+          <a href="{{ url_for('prediction') }}" class="btn btn-sm rounded-pill px-3 text-white"
+             style="background:var(--accent);">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- END NAVBAR -->
+
+
+  <!-- RESULT SECTION -->
+  <section class="py-5" style="min-height:80vh;">
+    <div class="container py-4">
+
+      <!-- Page heading -->
+      <div class="text-center mb-5">
+        <span class="badge rounded-pill px-3 py-2 mb-3"
+              style="background:rgba(91,192,235,.15); color:#5bc0eb; font-size:.85rem;">
+          <i class="bi bi-clipboard2-pulse me-1"></i> Diagnosis Report
+        </span>
+        <h2 class="section-title">Your <span>Result</span></h2>
+        <p class="section-subtitle mt-2">AI-generated hematology diagnostic summary</p>
+      </div>
+
+      <div class="row g-4">
+
+        <!-- LEFT COLUMN -->
+        <div class="col-lg-5">
+
+          <!-- Predicted Disease -->
+          <div class="result-card p-4 mb-4">
+            <p class="text-uppercase small mb-1" style="color:#5bc0eb; letter-spacing:.08em;">
+              <i class="bi bi-virus me-1"></i> Predicted Disease
+            </p>
+            <h3 class="text-white fw-bold mb-0">{{ predicted_disease }}</h3>
+          </div>
+
+          <!-- Confidence + Risk -->
+          <div class="row g-3 mb-4">
+            <div class="col-6">
+              <div class="result-card p-4 text-center h-100">
+                <p class="text-uppercase small mb-2" style="color:#5bc0eb; letter-spacing:.08em;">Confidence</p>
+                <div class="display-6 fw-bold text-white">{{ confidence }}</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="result-card p-4 text-center h-100">
+                <p class="text-uppercase small mb-2" style="color:#5bc0eb; letter-spacing:.08em;">Risk Level</p>
+                <span class="badge fs-6 px-3 py-2 rounded-pill
+                  {% if risk_level == 'High' %}risk-badge-high
+                  {% elif risk_level == 'Medium' %}risk-badge-medium
+                  {% else %}risk-badge-low{% endif %}">
+                  {{ risk_level }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Gauge Meter Placeholder -->
+          <div class="gauge-wrap mb-4">
+            <i class="bi bi-speedometer2 mb-2" style="font-size:2.5rem; color:rgba(91,192,235,.5);"></i>
+            <span class="small">Gauge Meter — Chart.js / D3 goes here</span>
+          </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="col-lg-7">
+
+          <!-- Recommendation Card -->
+          <div class="result-card p-4 mb-4">
+            <h6 class="text-white mb-3">
+              <i class="bi bi-lightbulb me-2" style="color:#ffc107;"></i>Recommendation
+            </h6>
+            <p class="mb-0" style="color:rgba(255,255,255,.75);">
+              {{ recommendation | default('Consult a hematologist promptly. Begin iron supplementation as advised and monitor CBC levels every 4 weeks. Avoid self-medication.') }}
+            </p>
+          </div>
+
+          <!-- Suggested Tests -->
+          <div class="result-card p-4 mb-4">
+            <h6 class="text-white mb-3">
+              <i class="bi bi-clipboard2-check me-2" style="color:#20c997;"></i>Suggested Tests
+            </h6>
+            <ul class="list-unstyled mb-0" style="color:rgba(255,255,255,.75);">
+              {% for test in suggested_tests | default(['Complete Blood Count (CBC)', 'Serum Ferritin', 'Peripheral Blood Smear', 'Reticulocyte Count']) %}
+              <li class="mb-2"><i class="bi bi-check-circle-fill me-2 text-success"></i>{{ test }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <!-- Lifestyle Advice -->
+          <div class="result-card p-4 mb-4">
+            <h6 class="text-white mb-3">
+              <i class="bi bi-heart-pulse me-2" style="color:#e63946;"></i>Lifestyle Advice
+            </h6>
+            <ul class="list-unstyled mb-0" style="color:rgba(255,255,255,.75);">
+              {% for tip in lifestyle | default(['Increase iron-rich foods (spinach, lentils, red meat)', 'Avoid tea/coffee with meals', 'Take Vitamin C to boost iron absorption', 'Maintain regular sleep schedule']) %}
+              <li class="mb-2"><i class="bi bi-arrow-right-circle me-2" style="color:#5bc0eb;"></i>{{ tip }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <!-- Doctor Consultation -->
+          <div class="result-card p-4 mb-4 d-flex align-items-start gap-3">
+            <i class="bi bi-person-badge-fill fs-2" style="color:#5bc0eb; flex-shrink:0;"></i>
+            <div>
+              <h6 class="text-white mb-1">Doctor Consultation</h6>
+              <p class="mb-0 small" style="color:rgba(255,255,255,.65);">
+                {{ doctor_note | default('Schedule an appointment with a certified hematologist within 7 days. Bring this report and your recent blood test records.') }}
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <hr class="section-divider my-4" />
+      <div class="d-flex flex-wrap justify-content-center gap-3">
+        <button class="btn rounded-pill px-4 py-2 text-white"
+                style="background:var(--accent);"
+                onclick="window.print()">
+          <i class="bi bi-printer me-2"></i>Print
+        </button>
+        <button class="btn btn-outline-info rounded-pill px-4 py-2"
+                id="downloadBtn">
+          <i class="bi bi-file-earmark-pdf me-2"></i>Download PDF
+        </button>
+        <a href="{{ url_for('prediction') }}" class="btn btn-outline-light rounded-pill px-4 py-2">
+          <i class="bi bi-arrow-repeat me-2"></i>Predict Again
+        </a>
+      </div>
+
+    </div>
+  </section>
+  <!-- END RESULT SECTION -->
+
+
+  <!-- FOOTER -->
+  <footer class="py-5">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <div class="footer-brand fw-bold fs-5 text-white mb-2">
+            <i class="bi bi-droplet-half me-2" style="color:#e63946;"></i>
+            Hema<span>Sense</span>
+          </div>
+          <p class="small mb-3">
+            AI-powered hematology diagnostic assistant helping clinicians
+            detect blood disorders early and accurately.
+          </p>
+          <div class="d-flex gap-2">
+            <a href="#" class="social-icon"><i class="bi bi-twitter-x"></i></a>
+            <a href="#" class="social-icon"><i class="bi bi-linkedin"></i></a>
+            <a href="#" class="social-icon"><i class="bi bi-github"></i></a>
+            <a href="#" class="social-icon"><i class="bi bi-envelope"></i></a>
+          </div>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h6 class="text-white mb-3">Quick Links</h6>
+          <ul class="list-unstyled small">
+            <li class="mb-2"><a href="{{ url_for('home') }}">Home</a></li>
+            <li class="mb-2"><a href="{{ url_for('diseases') }}">Diseases</a></li>
+            <li class="mb-2"><a href="{{ url_for('prediction') }}">Prediction</a></li>
+            <li class="mb-2"><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h6 class="text-white mb-3">Resources</h6>
+          <ul class="list-unstyled small">
+            <li class="mb-2"><a href="#">Documentation</a></li>
+            <li class="mb-2"><a href="#">Research</a></li>
+            <li class="mb-2"><a href="#">Blog</a></li>
+            <li class="mb-2"><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4">
+          <h6 class="text-white mb-3">Contact Us</h6>
+          <ul class="list-unstyled small">
+            <li class="mb-2"><i class="bi bi-envelope me-2" style="color:#5bc0eb;"></i>support@hemasense.ai</li>
+            <li class="mb-2"><i class="bi bi-telephone me-2" style="color:#5bc0eb;"></i>+1 (800) HEMA-AI</li>
+            <li class="mb-2"><i class="bi bi-geo-alt me-2" style="color:#5bc0eb;"></i>Medical AI Research Lab</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="mt-4 mb-3" style="border-color:rgba(255,255,255,.1);" />
+      <div class="d-flex flex-wrap justify-content-between align-items-center small">
+        <span>&copy; 2025 HemaSense. All rights reserved.</span>
+        <div class="d-flex gap-3 mt-2 mt-md-0">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+          <a href="#">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- END FOOTER -->
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script>
+    document.getElementById('downloadBtn').addEventListener('click', function () {
+      html2pdf().set({
+        margin: 0.5,
+        filename: 'HemaSense-Result.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+      }).from(document.querySelector('section')).save();
+    });
+  </script>
+
+</body>
+</html>

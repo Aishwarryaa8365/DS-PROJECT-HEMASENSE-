@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diseases – HemaSense</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/style.css') }}" />
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg sticky-top py-3">
+    <div class="container">
+      <a class="navbar-brand fw-bold fs-4 text-white" href="{{ url_for('home') }}">
+        <i class="bi bi-droplet-half me-2" style="color:#e63946;"></i>Hema<span>Sense</span>
+      </a>
+      <button class="navbar-toggler border-secondary" type="button"
+              data-bs-toggle="collapse" data-bs-target="#mainNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav mx-auto gap-lg-2">
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="{{ url_for('diseases') }}">Diseases</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('prediction') }}">Prediction</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}">Contact</a></li>
+        </ul>
+        <div class="d-flex gap-2 mt-3 mt-lg-0">
+          <a href="{{ url_for('login') }}" class="btn btn-outline-light btn-sm rounded-pill px-3">Login</a>
+          <a href="{{ url_for('prediction') }}" class="btn btn-sm rounded-pill px-3 text-white" style="background:var(--accent);">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <section class="py-5" style="min-height:80vh; background:#fff;">
+    <div class="container py-4">
+      <div class="text-center mb-5">
+        <h2 class="section-title">Detectable <span>Conditions</span></h2>
+        <p class="section-subtitle mt-2">HemaSense screens for a wide range of hematological disorders.</p>
+      </div>
+      <div class="row g-4">
+
+        <div class="col-sm-6 col-lg-4">
+          <div class="card disease-card h-100 border-0 shadow-sm">
+            <div class="bg-danger bg-opacity-10 d-flex align-items-center justify-content-center" style="height:140px;">
+              <i class="bi bi-droplet-fill text-danger" style="font-size:3.5rem;"></i>
+            </div>
+            <div class="card-body">
+              <span class="disease-badge bg-danger bg-opacity-10 text-danger mb-2 d-inline-block">Blood Disorder</span>
+              <h5 class="card-title fw-bold">Anemia</h5>
+              <p class="card-text text-muted small">Detects iron-deficiency, aplastic, and hemolytic anemia through CBC pattern recognition.</p>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3">
+              <a href="{{ url_for('prediction') }}" class="btn btn-sm btn-outline-danger rounded-pill px-3">
+                Run Diagnosis <i class="bi bi-arrow-right ms-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-4">
+          <div class="card disease-card h-100 border-0 shadow-sm">
+            <div class="bg-primary bg-opacity-10 d-flex align-items-center justify-content-center" style="height:140px;">
+              <i class="bi bi-virus text-primary" style="font-size:3.5rem;"></i>
+            </div>
+            <div class="card-body">
+              <span class="disease-badge bg-primary bg-opacity-10 text-primary mb-2 d-inline-block">Malignancy</span>
+              <h5 class="card-title fw-bold">Leukemia</h5>
+              <p class="card-text text-muted small">Early-stage leukemia screening using white blood cell count anomaly detection models.</p>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3">
+              <a href="{{ url_for('prediction') }}" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                Run Diagnosis <i class="bi bi-arrow-right ms-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-4">
+          <div class="card disease-card h-100 border-0 shadow-sm">
+            <div class="bg-warning bg-opacity-10 d-flex align-items-center justify-content-center" style="height:140px;">
+              <i class="bi bi-heart-pulse text-warning" style="font-size:3.5rem;"></i>
+            </div>
+            <div class="card-body">
+              <span class="disease-badge bg-warning bg-opacity-10 text-warning mb-2 d-inline-block">Genetic</span>
+              <h5 class="card-title fw-bold">Thalassemia</h5>
+              <p class="card-text text-muted small">Identifies alpha and beta thalassemia traits using hemoglobin electrophoresis data patterns.</p>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3">
+              <a href="{{ url_for('prediction') }}" class="btn btn-sm btn-outline-warning rounded-pill px-3">
+                Run Diagnosis <i class="bi bi-arrow-right ms-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-4">
+          <div class="card disease-card h-100 border-0 shadow-sm">
+            <div class="bg-success bg-opacity-10 d-flex align-items-center justify-content-center" style="height:140px;">
+              <i class="bi bi-capsule text-success" style="font-size:3.5rem;"></i>
+            </div>
+            <div class="card-body">
+              <span class="disease-badge bg-success bg-opacity-10 text-success mb-2 d-inline-block">Genetic</span>
+              <h5 class="card-title fw-bold">Sickle Cell Disease</h5>
+              <p class="card-text text-muted small">Detects sickle cell trait and disease using morphological red blood cell analysis.</p>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3">
+              <a href="{{ url_for('prediction') }}" class="btn btn-sm btn-outline-success rounded-pill px-3">
+                Run Diagnosis <i class="bi bi-arrow-right ms-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-4">
+          <div class="card disease-card h-100 border-0 shadow-sm">
+            <div class="bg-info bg-opacity-10 d-flex align-items-center justify-content-center" style="height:140px;">
+              <i class="bi bi-activity text-info" style="font-size:3.5rem;"></i>
+            </div>
+            <div class="card-body">
+              <span class="disease-badge bg-info bg-opacity-10 text-info mb-2 d-inline-block">Platelet Disorder</span>
+              <h5 class="card-title fw-bold">Thrombocytopenia</h5>
+              <p class="card-text text-muted small">Flags abnormally low platelet counts that may indicate bleeding disorders or bone marrow issues.</p>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3">
+              <a href="{{ url_for('prediction') }}" class="btn btn-sm btn-outline-info rounded-pill px-3">
+                Run Diagnosis <i class="bi bi-arrow-right ms-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-4">
+          <div class="card disease-card h-100 border-0 shadow-sm">
+            <div class="d-flex align-items-center justify-content-center" style="height:140px; background:rgba(111,66,193,.08);">
+              <i class="bi bi-graph-up-arrow" style="font-size:3.5rem; color:#6f42c1;"></i>
+            </div>
+            <div class="card-body">
+              <span class="disease-badge mb-2 d-inline-block" style="background:rgba(111,66,193,.1); color:#6f42c1;">Myeloproliferative</span>
+              <h5 class="card-title fw-bold">Polycythemia Vera</h5>
+              <p class="card-text text-muted small">Identifies elevated red blood cell mass and associated JAK2 mutation risk markers.</p>
+            </div>
+            <div class="card-footer bg-transparent border-0 pb-3">
+              <a href="{{ url_for('prediction') }}" class="btn btn-sm rounded-pill px-3" style="border:1px solid #6f42c1; color:#6f42c1;">
+                Run Diagnosis <i class="bi bi-arrow-right ms-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-4">
+    <div class="container text-center small">
+      <span>&copy; 2025 HemaSense. All rights reserved.</span>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

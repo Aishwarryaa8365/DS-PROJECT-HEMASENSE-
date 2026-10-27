@@ -1,0 +1,354 @@
+/*==================================================
+    HemaSense - Dashboard CSS
+    AI-Powered Hematology Diagnostic Assistant
+==================================================*/
+
+/* Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+/*=========================
+        ROOT VARIABLES
+==========================*/
+
+:root {
+  --primary: #1976d2;
+  --secondary: #0f172a;
+  --accent: #d32f2f;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --light: #f8fafc;
+  --white: #ffffff;
+  --border: #e5e7eb;
+  --text: #374151;
+  --shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  --radius: 16px;
+}
+
+/*=========================
+      GLOBAL STYLES
+==========================*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: #f4f8fb;
+  color: var(--text);
+}
+
+/*=========================
+      SIDEBAR
+==========================*/
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 260px;
+  height: 100vh;
+  background: linear-gradient(180deg, #0f172a, #1976d2);
+  color: #fff;
+  padding: 30px 20px;
+  overflow: auto;
+}
+
+.sidebar h2 {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 24px;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar ul li {
+  margin: 15px 0;
+}
+
+.sidebar ul li a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+  text-decoration: none;
+  padding: 14px 16px;
+  border-radius: 12px;
+  transition: 0.3s;
+}
+
+.sidebar ul li a:hover {
+  background: rgba(255, 255, 255, 0.18);
+  transform: translateX(6px);
+}
+
+/*=========================
+      MAIN CONTENT
+==========================*/
+
+.main-content {
+  margin-left: 260px;
+  padding: 30px;
+}
+
+/*=========================
+        NAVBAR
+==========================*/
+
+.top-navbar {
+  background: #fff;
+  padding: 18px 30px;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.top-navbar h3 {
+  color: var(--secondary);
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.profile img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+}
+
+/*=========================
+       DASHBOARD CARDS
+==========================*/
+
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 25px;
+  margin-bottom: 35px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 25px;
+  box-shadow: var(--shadow);
+  transition: 0.3s;
+  border-left: 6px solid var(--primary);
+}
+
+.card:hover {
+  transform: translateY(-8px);
+}
+
+.card h5 {
+  color: #6b7280;
+  margin-bottom: 10px;
+}
+
+.card h2 {
+  color: var(--secondary);
+  margin-bottom: 8px;
+}
+
+.card i {
+  font-size: 35px;
+  color: var(--primary);
+}
+
+/*=========================
+      CHART SECTION
+==========================*/
+
+.chart-container {
+  background: #fff;
+  border-radius: 18px;
+  padding: 25px;
+  box-shadow: var(--shadow);
+  margin-bottom: 30px;
+}
+
+.chart-container h4 {
+  margin-bottom: 20px;
+  color: var(--secondary);
+}
+
+.chart-box {
+  width: 100%;
+  height: 350px;
+}
+
+/*=========================
+          TABLE
+==========================*/
+
+.table-container {
+  background: #fff;
+  border-radius: 18px;
+  padding: 25px;
+  box-shadow: var(--shadow);
+  overflow-x: auto;
+}
+
+.table-container h4 {
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th {
+  background: var(--primary);
+  color: #fff;
+  padding: 14px;
+}
+
+table td {
+  padding: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+table tr:hover {
+  background: #f8fafc;
+}
+
+/*=========================
+      STATUS BADGES
+==========================*/
+
+.badge-success {
+  background: #dcfce7;
+  color: #15803d;
+  padding: 6px 12px;
+  border-radius: 30px;
+}
+
+.badge-warning {
+  background: #fef3c7;
+  color: #b45309;
+  padding: 6px 12px;
+  border-radius: 30px;
+}
+
+.badge-danger {
+  background: #fee2e2;
+  color: #dc2626;
+  padding: 6px 12px;
+  border-radius: 30px;
+}
+
+/*=========================
+        BUTTONS
+==========================*/
+
+.btn-primary {
+  background: var(--primary);
+  border: none;
+  color: #fff;
+  padding: 12px 25px;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.btn-primary:hover {
+  background: #1565c0;
+  transform: translateY(-3px);
+}
+
+/*=========================
+      SCROLLBAR
+==========================*/
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+
+/*=========================
+      CARD ANIMATION
+==========================*/
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card,
+.chart-container,
+.table-container {
+  animation: fadeUp 0.8s ease;
+}
+
+/*=========================
+        RESPONSIVE
+==========================*/
+
+@media (max-width: 991px) {
+  .sidebar {
+    width: 80px;
+  }
+
+  .sidebar h2 {
+    display: none;
+  }
+
+  .sidebar a span {
+    display: none;
+  }
+
+  .main-content {
+    margin-left: 80px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .top-navbar {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+
+  .chart-box {
+    height: 250px;
+  }
+}
+
+@media (max-width: 576px) {
+  .main-content {
+    padding: 15px;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  table {
+    font-size: 13px;
+  }
+}
