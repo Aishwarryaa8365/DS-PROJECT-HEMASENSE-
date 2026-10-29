@@ -48,7 +48,7 @@
           <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="{{ url_for('diseases') }}">Diseases</a></li>
           <li class="nav-item"><a class="nav-link active" href="{{ url_for('prediction') }}">Prediction</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('customer_dashboard') if session.get('role') == 'customer' else url_for('dashboard') }}">Dashboard</a></li>
           <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}">About</a></li>
           <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}">Contact</a></li>
         </ul>
@@ -218,7 +218,7 @@
             <li class="mb-2"><a href="{{ url_for('home') }}">Home</a></li>
             <li class="mb-2"><a href="{{ url_for('diseases') }}">Diseases</a></li>
             <li class="mb-2"><a href="{{ url_for('prediction') }}">Prediction</a></li>
-            <li class="mb-2"><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+            <li class="mb-2"><a href="{{ url_for('customer_dashboard') if session.get('role') == 'customer' else url_for('dashboard') }}">Dashboard</a></li>
           </ul>
         </div>
         <div class="col-6 col-lg-2">
